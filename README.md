@@ -1,12 +1,15 @@
 # ActiveRecord SQL Server Adapter. For SQL Server 2005 And Higher.
 
+**This project is looking for a new maintainers. Join the [discusion here](https://github.com/rails-sqlserver/activerecord-sqlserver-adapter/issues/364)**
+
 The SQL Server adapter for ActiveRecord. If you need the adapter for SQL Server 2000, you are still in the right spot. Just install the latest 2.3.x version of the adapter. Note, we follow a rational versioning policy that tracks ActiveRecord. That means that our 2.3.x version of the adapter is only for the latest 2.3 version of Rails. We also have stable branches for each major/minor release of ActiveRecord.
 
 
 ## What's New
 
-* Rails 4 support (not yet released, look at outstanding issues)
-* Ruby 2.0.0 and 2.1.0.prerelease support
+* Rails 4.0 and 4.1 support
+* Ruby 2.0 and 2.1 support
+
 
 #### Testing Rake Tasks Support
 
@@ -36,7 +39,7 @@ Every class that sub classes ActiveRecord::Base will now have an execute_procedu
 ```ruby
 Account.execute_procedure :update_totals, 'admin', nil, true
 # Or with named parameters.
-Account.execute_procedure :update_totals, :named => 'params'
+Account.execute_procedure :update_totals, named: 'params'
 ```
 
 #### Native Data Type Support
@@ -53,9 +56,9 @@ Currently the following custom data types have been tested for schema definition
 For example:
 
 ```ruby
-create_table :sql_server_custom_types, :force => true do |t|
-  t.column :ten_code,       :char,      :limit => 10
-  t.column :ten_code_utf8,  :nchar,     :limit => 10
+create_table :sql_server_custom_types, force: true do |t|
+  t.column :ten_code,       :char,      limit: 10
+  t.column :ten_code_utf8,  :nchar,     limit: 10
   t.column :title_utf8,     :nvarchar
   t.column :body,           :varchar_max    # Creates varchar(max)
   t.column :body_utf8,      :ntext
@@ -88,7 +91,7 @@ ActiveRecord::ConnectionAdapters::SQLServerAdapter.native_binary_database_type =
 
 ####  Setting Unicode Types As Default
 
-By default the adapter will use unicode safe data types for `:string` and `:text` types when defining/changing the schema! This was changed in version 3.1 since it is about time we push better unicode support and since we default to TinyTDS (DBLIB) which supports unicode queries and data. If you choose, you can set the following class attribute in a config/initializers file that will disable this behavior. 
+By default the adapter will use unicode safe data types for `:string` and `:text` types when defining/changing the schema! This was changed in version 3.1 since it is about time we push better unicode support and since we default to TinyTDS (DBLIB) which supports unicode queries and data. If you choose, you can set the following class attribute in a config/initializers file that will disable this behavior.
 
 ```ruby
 # Default
@@ -159,7 +162,7 @@ end
 The 3.2 version of the adapter support ActiveRecord's explain features. In SQL Server, this is called the showplan. By default we use the `SHOWPLAN_ALL` option and format it using a simple table printer. So the following ruby would log the plan table below it.
 
 ```ruby
-Car.where(:id => 1).explain
+Car.where(id: 1).explain
 ```
 
 ```
@@ -239,12 +242,7 @@ Up-to-date list of contributors: http://github.com/rails-sqlserver/activerecord-
 * jeremydurham (Jeremy Durham)
 
 
-## Donators
-
-I am trying to save up for a Happy Hacking pro keyboard. Help me out via GitTip! https://www.gittip.com/metaskills/
-
-
 ## License
 
-Copyright © 2008-2011. It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.
+Copyright © 2008-2014. It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.
 
